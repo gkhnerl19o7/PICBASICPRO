@@ -1,0 +1,91 @@
+trisd=%10000000
+portd=0
+i var byte
+'j var byte
+'symbol led1 = portd.0
+symbol btn=portd.7
+'i=1
+'portb=i : pause 100
+'bekle con 100
+  i=1
+dongu:
+
+while  btn=1
+
+if i<15 then
+i=i+1 
+portd=i:pause 1000
+else
+i=0
+endif
+
+
+wend
+i=0
+portd=1
+goto dongu
+
+'dongu: 
+'    while i<128
+'    i=i<<1
+'     j=~i
+'     portb=j
+'    portb=i: pause bekle
+'    wend
+'    while i>1
+'    i=i>>1
+'    portb=i: pause bekle
+'    wend
+'goto dongu
+
+
+
+'dongu: 
+'    while i<128
+'    i=i<<1
+    
+'    portb=i: pause bekle
+'    wend
+'    while i>1
+'    i=i>>1
+'    portb=i: pause bekle
+'    wend
+'goto dongu
+
+
+
+
+'dongu:
+'portb=%00000001 : pause bekle
+'portb=%00000010 : pause bekle
+'portb=%00000100 : pause bekle
+'portb=%00001000 : pause bekle
+'portb=%00010000 : pause bekle
+'portb=%00100000 : pause bekle
+'portb=%01000000 : pause bekle
+'portb=%10000000 : pause bekle
+
+'portb=%01000000 : pause bekle
+'portb=%00100000 : pause bekle
+'portb=%00010000 : pause bekle
+'portb=%00001000 : pause bekle
+'portb=%00000100 : pause bekle
+'portb=%00000010 : pause bekle
+'portb=%00000001 : pause bekle
+'goto dongu 
+
+'dongu:
+'    while i<128
+'    if i<128 then i=i*2
+'    portb=i
+'    pause bekle
+    
+'    wend
+
+'    while i>1
+'    if i>1 then i=i/2
+'    portb=i
+'    pause bekle
+'    wend
+
+'goto dongu

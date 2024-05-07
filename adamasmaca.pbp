@@ -1,0 +1,61 @@
+include "hafta3_LCD.pbp"
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+
+LCDOUT $fe,$40,31,16,16,16,16,16,24,0 'daraðacý
+LCDOUT $fe,$48,4,10,4,0,0,0,0,0 'kafa
+lcdout $fe,$50,4,10,4,4,4,0,0,0 'gövde
+lcdout $fe,$58,4,10,4,7,4,0,0,0 'sað kol
+lcdout $fe,$60,4,10,4,31,4,0,0,0 'sol kol
+lcdout $fe,$68,4,10,4,31,4,2,1,0 'sað bacak
+lcdout $fe,$70,4,10,4,31,4,10,17,0 'sol bacak
+LCDOUT $fe,$78,4,10,4,14,21,10,10,0 'öldü
+
+A VAR BYTE
+BILINEN VAR BYTE
+COUNTER VAR BYTE
+FIND VAR BIT
+TAHMIN VAR BYTE
+CHECK VAR BIT[5]
+KELIME VAR BYTE[5]
+FLAG VAR BIT
+SYMBOL SES = PortB.0
+      HSEROUT["BASLAMAK ICIN -SPACE- BASIN",13,10]
+label:
+        hserin[wait(" ")]
+        FLAG = 1
+    BILINEN = 0
+    COUNTER = 0
+lcdout $fe,1 
+hserout["birinci oyuncu 5 kelimeli harf girsin",13,10]
+for a=0 to 4 step 1
+hserin[kelime[a]]
+hserout["*"]
+next a
+
+hserout[13,10,"ikinci oyuncu harf tahminini girsin",13,10]
+ 
+while flag == 1
+hserin[tahmin]
+    for a=0 to 4 
+     if kelime[a]==tahmin then  
+     lcdout $fe,$80 +a,tahmin 
+        if check[a]==0 then 
+         find =1 
+         bilinen=bilinen +1 
+         check[a]=1
+        else 
+        hserout["ayný harfi girme",13,10]
+         endif
+     endif    
+    next a
+    
+lcdout $fe,$88, 5   
+
+    
+wend 
+
+
+goto label

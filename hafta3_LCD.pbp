@@ -1,0 +1,95 @@
+define LCD_DREG PORTD
+define LCD_DBIT 0
+define LCD_RSREG PORTE
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTE
+DEFINE LCD_EBIT 2
+DEFINE LCD_BITS 8
+ADCON1=7
+PAUSE 100
+
+'label:
+
+'lcdout $fe,1
+'lcdout $fe,2
+'lcdout $fe,$0C
+'lcdout $fe,$0E
+'lcdout "gokhan"
+'pause 500
+'lcdout $fe,$0F
+'lcdout $fe,$10
+'lcdout $fe,$14
+'lcdout $fe,$C0
+'lcdout $fe,$94
+'lcdout $fe,$D4
+''lcdout X
+
+'goto label
+
+'i var byte 
+'j var byte
+
+'label:
+
+'lcdout $fe,1       'lcd ekranýný temizler'
+'i=144
+'j=192
+
+'while i!= 128 and j!=208
+' lcdout $fe,1
+' lcdout $fe,i
+' lcdout "gokhan"
+' lcdout $fe,j
+' lcdout "erol"
+' i=i-1
+' j=j+1
+ 
+ 
+' pause 100
+'wend
+
+
+'goto label
+
+'label:
+
+'lcdout $fe,1       'lcd ekranýný temizler'
+
+
+
+'for i=144 to 128 step  -1
+'lcdout $fe,1
+'lcdout $fe,i
+    
+'lcdout "gokhan"
+'pause 100
+'next i
+'for j=192 to 208 step 1
+'lcdout $fe,1
+'lcdout $fe,j
+    
+'lcdout "erol"
+'pause 100
+
+'next j
+
+
+'goto label
+
+'label:
+
+'lcdout $fe,1       'lcd ekranýný temizler'
+
+'for i=148 to 128 step  -1
+'lcdout $fe,1
+'lcdout $fe,i
+    
+'lcdout "gokhan"
+'pause 100
+'next i
+'lcdout $fe,$c5,"fenerbahce"
+
+
+'goto label
+
+

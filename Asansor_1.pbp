@@ -1,0 +1,46 @@
+' asansör
+define LOADER_USED 1
+adcon1=7
+'DEFINE HSER_RCSTA 90h
+'DEFINE HSER_TXSTA 24h
+'define HSER_BAUD 9600
+'DEFINE HSER_CLROERR 1
+
+trisa=%001111
+trisb=0
+porta=%111111
+portb=%11111111
+
+symbol yukari=porta.4
+symbol asagi=porta.5
+i var byte
+j var byte
+j=1
+i=1
+portb=~j
+label:
+
+
+if porta.3=0 then i=64
+if porta.2=0 then i=16
+if porta.1=0 then i=4
+if porta.0=0 then i=1
+
+
+yukari=1
+asagi=1
+while i>j
+j=j*2
+portb=~j
+yukari=0
+pause 500
+wend 
+
+while j>i
+j=j/2 
+portb=~j
+asagi=0
+pause 500
+wend 
+
+goto label

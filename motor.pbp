@@ -1,0 +1,28 @@
+include "hafta3_LCD.pbp"
+trisa=%001111
+trisb=%11110000
+trisd=%00000000
+portd=0
+portb=0
+porta=0
+LCDOUT $fe,$40,0,4,2,31,2,4,0,0 'sag
+LCDOUT $fe,$48,0,4,14,21,4,4,0,0 'ileri
+LCDOUT $fe,$50,4,8,16,31,8,4,0,0 ' sol
+LCDOUT $fe,$58,4,4,4,4,21,14,4,0' geri
+symbol ileri = porta.0
+symbol geri = porta.1
+symbol sag = porta.2
+symbol sol = porta.3
+label:
+if ileri=1 and geri=1 and sag =1 and sol=1 then lcdout $fe,1,$80,"duruyor":portb=0 
+
+if ileri=0 then lcdout $fe,1,$80,"ileri gidiyor",1:portb.0=1:portb.2=1
+if geri=0 then lcdout $fe,1,$80,"geri gidiyor",3:portb.2=1:portb.0=1
+if sag=0 then lcdout $fe,1,$80,"saga gidiyor",0:portb.2=1
+if sol=0 then lcdout $fe,1,$80,"sola gidiyor",2:portb.0=1
+
+
+
+ 
+
+goto label

@@ -1,0 +1,74 @@
+define LOADER_USED 1
+define LCD_DREG PORTD
+define LCD_DBIT 0
+define LCD_RSREG PORTE
+DEFINE LCD_RSBIT 0
+DEFINE LCD_EREG PORTE
+DEFINE LCD_EBIT 2
+DEFINE LCD_BITS 8
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+lcdout $fe,$40,$00,$15,$0e,$1f,$0e,$15,$00,0 'güneþ
+lcdout $fe,$48,4,14,14,31,14,4,4 'aðaç
+lcdout $fe,$50,0,10,0,14,17,0,0,0
+i var byte
+j var byte
+k var byte 
+v var byte
+adcon1=7
+trise=%000
+porte.1=0
+pause 100
+label:
+'v=1
+
+
+'for i=0 to 23
+'    for j=0 to 59
+'        for k=0 to 59
+'        hserin 100,devam,[v] :goto devam
+'        devam:
+'        if v=" " then 
+'        hserout["saati giriniz",13,10]
+'        hserin [dec i]
+'        hserout["dakika giriniz",13,10]
+'        hserin [dec j]
+'        hserout["saniye giriniz",13,10]
+'        hserin [dec k]
+'        v=1
+'        endif
+'        lcdout $fe,1
+'        lcdout #(i dig 1),#(i dig 0)
+'        lcdout $fe,130,":"
+'        lcdout  #(j dig 1),#(j dig 0)
+'        lcdout $fe,133,":"
+'        lcdout  #(k dig 1),#(k dig 0)
+        
+        
+        
+'        next k
+'    next j
+'next i
+
+'hserout["asdf"]
+'hserin [j]
+'lcdout $fe,1
+'lcdout $fe,$80,j
+'pause 500
+
+
+'lcdout $fe,1
+'lcdout $fe,$80,1
+'pause 1000
+
+'for i=10 to 0 step -1
+
+'lcdout $fe,1
+'lcdout #i
+'if i=0 then lcdout $fe,$c0, "BOOOOOOM"
+'pause 1000
+
+'next i
+goto label

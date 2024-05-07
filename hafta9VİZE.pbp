@@ -1,0 +1,38 @@
+
+trisb=%00001000
+portb=0
+trisd=%00000000
+portd=0
+symbol red=portb.0
+symbol yellow = portb.1
+symbol green=portb.2
+symbol btn = portb.3
+i var byte 
+label:
+'btn=1
+green=1
+if(btn=0) then 
+    green=0
+    yellow=1
+    pause 1000
+    yellow=0
+        for i=60 to 0 step -1
+             portd=(i dig 0) + ((i dig 1) * 16)
+             red=1
+            pause 1000
+        next i
+    red=0
+    yellow=1
+    pause 1000
+    yellow=0
+endif
+
+goto label
+'label2:
+'for i=0 to 15 
+'PortD = i+((i dig 1)*6) 
+'pause 500
+'next i
+
+
+'goto label2

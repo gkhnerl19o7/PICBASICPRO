@@ -1,0 +1,120 @@
+include "hafta3_LCD.pbp"
+
+'i var byte
+'j var byte
+'k var byte
+'i=17
+'deneme:
+
+'j=i dig 0
+'k=i dig 1
+
+'lcdout $fe,1,#j
+'lcdout $fe,$c0,#k
+'goto deneme
+
+
+'label: 
+'for k=0 to 23
+'    for j=0 to 59
+    
+'        for i=0 to 59
+'        lcdout $fe,1
+'        lcdout  #(k dig 1),#(k dig 0)
+'        lcdout $fe,130,":"
+'        lcdout  #(j dig 1),#(j dig 0)
+'        lcdout $fe,133,":"
+'        lcdout #(i dig 1),#(i dig 0)
+'        pause 10
+'        next i
+'    next j
+'next k
+'goto label
+
+
+
+
+
+
+'j var byte
+'i=0
+'j=1
+'label:
+'while i<21 and j<22
+
+''lcdout $fe,1
+'lcdout $fe,128
+'lcdout #i
+
+'lcdout $fe,192
+'if j<20 then
+'lcdout #j
+'endif
+'pause 500
+'i=i+2
+'j=j+2
+' pause 500
+
+
+'wend
+
+'for i=0  to 20
+''lcdout $fe,1
+'if i mod 2==0 then
+''lcdout $fe,1
+'lcdout $fe,128+i
+'lcdout #i 
+'pause 500
+
+'else  
+''lcdout $fe,1
+'lcdout $fe,192+i
+
+'lcdout #i
+'pause 500
+'endif
+'next i
+  
+'goto label
+
+
+
+
+
+
+
+
+
+
+
+lcdout $fe,$40,14,16,16,16,16,14,4,0    'ç
+lcdout $fe,$48,10,0,14,17,17,17,14,0   'ö
+lcdout $fe,$50,10,17,17,17,17,17,14,0      'ü
+lcdout $fe,$58,14,17,16,14,1,14,4,0 'þ
+label:
+
+lcdout $fe,1
+lcdout 0,1,"l g",2,"ne",3,"i"
+'lcdout 1
+'lcdout  "l g"
+'lcdout 2
+'lcdout "ne"
+'lcdout 3
+'lcdout "i"
+pause 500
+'lcdout $fe,2
+'lcdout $fe,$0C
+'lcdout $fe,$0E
+'lcdout 0
+
+'lcdout $fe,$0F
+'lcdout $fe,$10
+'lcdout $fe,$14
+'lcdout $fe,$C0
+'lcdout $fe,$94,"aa"
+'pause 500
+'lcdout $fe,$D4,"bb"
+'lcdout X
+
+goto label
+

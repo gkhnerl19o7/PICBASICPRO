@@ -1,0 +1,105 @@
+INCLUDE "hafta3_LCD.pbp"
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+
+x var word 
+y var byte [3]
+x=2024
+w var byte 
+label:
+
+hserout["bilgisayar",x,"mikrodenetleyicilersinavi",13,10]
+hserin[skip 3,dec2 x,skip 2 , str y\3,wait("a"),w]
+hserout[dec2 x,str y\3, "t",w]
+pause 10000
+goto label
+
+
+'LCDOUT $fe,$40,31,16,16,16,16,16,24,0 'daraðacý
+'LCDOUT $fe,$48,4,10,4,0,0,0,0,0 'kafa
+'lcdout $fe,$50,4,10,4,4,4,0,0,0 'gövde
+'lcdout $fe,$58,4,10,4,7,4,0,0,0 'sað kol
+'lcdout $fe,$60,4,10,4,31,4,0,0,0 'sol kol
+'lcdout $fe,$68,4,10,4,31,4,2,1,0 'sað bacak
+'lcdout $fe,$70,4,10,4,31,4,10,17,0 'sol bacak
+'LCDOUT $fe,$78,4,10,4,14,21,10,10,0 'öldü
+
+'A VAR BYTE
+'BILINEN VAR BYTE
+'COUNTER VAR BYTE
+'FIND VAR BIT
+'TAHMIN VAR BYTE
+'CHECK VAR BIT[5]
+'KELIME VAR BYTE[5]
+'FLAG VAR BIT
+'SYMBOL SES = PortB.0
+
+'HSEROUT["BASLAMAK ICIN -SPACE- BASIN",13,10]
+'START:
+
+'    HSERIN[WAIT(" ")]
+'    FLAG = 1
+'    BILINEN = 0
+'    COUNTER = 0
+'    LCDOUT $fe,1
+'    HSEROUT["SORAN OYUNCU 5 KARAKTERLI KELIME GIRSIN",13,10]
+'    FOR A = 0 TO 4
+'        HSERIN[KELIME[A]]
+'        check[a]=0
+'        HSEROUT["*"]
+'    NEXT A
+'    HSEROUT[" ",13,10]
+'    HSEROUT["KELIME GIRILDI. BULAN OYUNCU TAHMINE BASLASIN",13,10]
+'    SOUND SES,[80,10]
+'    LCDOUT $fe,$87,0
+    
+'    WHILE FLAG = 1
+'        HSERIN[TAHMIN]
+'        FOR A = 0 TO 4
+'            IF TAHMIN = KELIME[A] THEN
+'                LCDOUT $fe,$80 + A,TAHMIN
+                  
+'                IF CHECK[A] = 0 THEN
+'                    FIND = 1
+'                    BILINEN = BILINEN + 1
+'                    CHECK[A] = 1
+'                else
+'                    SOUND SES,[70,10]
+'                    HSEROUT["AYNI HARFI YAZMA",13,10]
+'                ENDIF
+'                SOUND SES,[90,10]
+'            ENDIF
+'        NEXT A
+'        IF FIND = 0 THEN
+'            sound SES,[120,10]
+'            COUNTER = COUNTER + 1
+'            LCDOUT $fe,$88,COUNTER
+'            LCDOUT $fe,$c0,"KALAN HAKKINIZ : ",#(6 - COUNTER)    
+'        ENDIF
+'        IF COUNTER = 6 THEN
+'            pause 750
+'            LCDOUT $fe,$88,7
+'            LCDOUT $fe,$C0,"                    "
+'            LCDOUT $fe,$c0,"KAYBETTIN"
+'            FOR A = 90 TO 80 STEP -1
+'                SOUND SES,[A,10]
+'            NEXT A
+'            FLAG = 0
+'        ENDIF
+'        IF BILINEN = 5 THEN
+'            pause 500
+'            LCDOUT $fe,$c0,"                    "
+'            LCDOUT $fe,$c0,"KAZANDINIZ"
+'            FOR A = 115 TO 125
+'                SOUND SES,[A,10]
+'            NEXT A
+'            FLAG = 0
+'        ENDIF
+'        FIND = 0    
+'    WEND
+'    HSEROUT["TEKRAR OYNAMAK ICIN -SPACE- BASIN",13,10]
+
+'GOTO START
+

@@ -1,0 +1,164 @@
+define LOADER_USED 1
+adcon1=7
+trisa=0
+trisb=0
+'trisb=%00001111
+portb=0
+symbol birler=porta.0
+symbol onlar=porta.1
+symbol yuzler=porta.2
+symbol binler=porta.3
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+i var byte [10]
+j var byte 
+k var byte
+v var byte
+b1 var byte
+b2 var byte
+sayi1 var byte 
+sayi2 var byte
+sonuc var byte
+i[0]=%00111111
+i[1]=%00000110
+i[2]=%01011011
+i[3]=%01001111
+i[4]=%01100110
+i[5]=%01101101
+i[6]=%01111101
+i[7]=%00000111
+i[8]=%01111111
+i[9]=%01101111
+symbol satir1=portb.4
+symbol satir2=portb.5
+symbol satir3=portb.6
+symbol satir4=portb.7
+symbol sutun1= portb.3
+symbol sutun2= portb.2
+symbol sutun3= portb.1
+symbol sutun4= portb.0
+label:
+ gosub oku
+ gosub yaz
+ 
+'for j=0 to 9
+'    for k=0 to 9
+'        for v=0 to 24 
+'        birler=1
+'        portb=i[k]
+'        pause 10
+'        birler=0
+        
+'        onlar=1
+'        portb=i[j]
+'        pause 10
+'        onlar=0
+'    '    pause 500
+'        next v
+'    next k
+    
+'next j
+'pause 500
+
+'for j = 0 to 9 
+'portb=i[j]
+'pause 500
+'next j
+
+goto label
+
+
+oku:
+trisb=%00001111
+portb=0
+satir1=1:satir2=0:satir3=0:satir4=0
+
+if satir1=1 and sutun1=1 then j=1
+if satir1=1 and sutun2=1 then j=2
+if satir1=1 and sutun3=1 then j=3
+if satir1=1 and sutun4=1 then k="+":sayi1=j
+
+satir1=0:satir2=1:satir3=0:satir4=0
+
+if satir2=1 and sutun1=1 then j=4
+if satir2=1 and sutun2=1 then j=5
+if satir2=1 and sutun3=1 then j=6
+if satir2=1 and sutun4=1 then k="-":sayi1=j 
+'if portb.2=1 and portb.7=1 then j=0
+
+satir1=0:satir2=0:satir3=1:satir4=0
+
+if satir3=1 and sutun1=1 then j=7
+if satir3=1 and sutun2=1 then j=8
+if satir3=1 and sutun3=1 then j=9
+if satir3=1 and sutun4=1 then k="*":sayi1=j
+
+satir1=0:satir2=0:satir3=0:satir4=1
+
+if satir4=1 and sutun1=1 then j=0
+
+if satir4=1 and sutun3=1 then goto hesapla
+if satir4=1 and sutun4=1 then k="/":sayi1=j
+'portb.3=0:portb.2=0:portb.1=0:portb.0=1
+'if portb.0=1 and portb.7=1 then j=4
+
+'if portb.2=1 and portb.5=1 then j=5
+'if portb.2=1 and portb.6=1 then j=6 
+
+'if sayi1=" " then 
+'sayi1=j
+'else 
+'sayi2=j
+'endif
+
+'if k="+" then sonuc=sayi1+sayi2
+'if k="-" then sonuc=sayi1-sayi2
+'if k="*" then sonuc=sayi1*sayi2
+'if k="/" then sonuc=sayi1/sayi2
+  
+return
+
+yaz: 
+trisb=0
+birler=1
+portb=i[j]
+pause 10
+birler=0
+if v="=" then goto hesapla
+return
+
+hesapla:
+trisb=0
+if k="+"then: sonuc=sayi1+sayi2
+if k="-"then
+    if sayi1>=sayi2 then sonuc=sayi1-sayi2
+    if sayi2>sayi1 then sonuc=sayi2-sayi1
+endif
+if k="*" then sonuc=sayi1*sayi2
+if k="/" then sonuc=sayi1/sayi2
+
+b1=sonuc dig 0
+b2=sonuc dig 1
+for v=0 to 24 
+    birler=1
+    portb=i[b1]
+    pause 10
+    birler=0
+    onlar=1
+    portb=i[b2]
+    pause 10
+    onlar=0
+    
+next v
+satir1=0:satir2=0:satir3=0:satir4=1
+
+if satir4=1 and sutun1=1 then j=0
+if satir4=1 and sutun2=1 then goto oku
+if satir4=1 and sutun3=1 then goto hesapla
+if satir4=1 and sutun4=1 then k="/":sayi1=j
+goto hesapla
+
+
+

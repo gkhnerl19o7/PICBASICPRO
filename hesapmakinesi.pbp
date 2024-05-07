@@ -1,0 +1,47 @@
+trisd=%00000000
+portd=0
+trisb=%00001111
+portb=0
+
+symbol satir1 =portb.0
+symbol satir2 =portb.1
+symbol satir3 =portb.2
+symbol satir4 =portb.3
+symbol sutun1=portb.4
+symbol sutun2=portb.5
+symbol sutun3=portb.6
+symbol sutun4=portb.7
+i var byte
+j var byte 
+sayi1 var byte
+sayi2 var byte
+label:
+if satir1=1 and sutun1=1 then sayi1=7
+if satir2=1 and sutun2=1 then sayi1=8
+if satir3=1 and sutun3=1 then sayi1=9
+'if satir4=1 and sutun1=4 then 
+if satir1=1 and sutun1=1 then sayi1=4
+if satir2=1 and sutun2=1 then sayi1=5
+if satir3=1 and sutun3=1 then sayi1=6
+'if satir4=1 and sutun4=1 then sayi1=7
+if satir1=1 and sutun1=1 then sayi1=3
+if satir2=1 and sutun2=1 then sayi1=2
+if satir3=1 and sutun3=1 then sayi1=1
+
+
+'if satir1=1 then:  satir2=0: satir3=0: satir4=0
+'    if sutun1=1 then i=7
+'    if sutun2=1 then i=8
+'    if sutun3=1 then i=9
+
+'if sayi1=="" then sayi1=i
+'if dortsatir=1 and sutun1=1 then sayi1=7
+'if dortsatir=1 and sutun2=1 then sayi1=0
+'if dortsatir=1 and sutun3=1 then sayi1=7
+
+
+    portd=(sayi1 dig 0) + ((sayi1 dig 1) * 16)
+    
+
+
+goto label

@@ -1,0 +1,161 @@
+include "hafta3_LCD.pbp"
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+'lcdout $fe,$40,14,17,16,14,1,14,4,0 'þ
+'lcdout $fe,$48,0,4,4,4,4,4,4,0 'ý
+i var byte
+j var byte
+sound portB.0,[50,10]
+symbol ses=portB.0
+label:
+hserout["TAS=t , MAKAS=m , Kagit=k",13,10]
+player1:
+hserin 1000,hamleyap,[i]
+if i!="t" and i!="m" and i!="k" then 
+hserout["hatali deger tekrar deger giriniz",13,10]
+goto player1
+  
+else :goto player2
+ endif
+
+hamleyap:
+hserout["player1 hamleni yap",13,10]
+sound ses, [30,10]
+goto player1
+
+player2:
+hserin 1000,hamleyap2,[j]
+if j!="t" and j!="m" and j!="k" then 
+hserout["hatali deger tekrar deger giriniz",13,10]
+goto player2
+  
+else :goto devam
+ endif
+hamleyap2:
+hserout ["player2 hamleni yap",13,10]
+sound ses ,[30,10]
+goto player2:
+
+devam:
+if i=="t" and j=="m" then 
+lcdout $fe,1,"tas makasi kirar"
+lcdout $fe,$c0, "player1 kazandi"
+sound ses, [100,10]
+endif
+if i=="t" and j=="k"  then
+lcdout $fe,1,"kagit tasi sarar"
+lcdout $fe,$c0, "player2 kazandi"
+sound ses, [100,10]
+endif
+if i=="t" and j=="t"  then
+lcdout $fe,1,"tas tas"
+lcdout $fe,$c0, "beraberlik"
+sound ses, [100,10]
+endif
+if i=="m" and j=="t" then
+lcdout $fe,1,"tas makasi kirar"
+lcdout $fe,$c0, "player2 kazandi"
+sound ses, [100,10]
+endif
+if i=="m" and j=="k" then 
+lcdout $fe,1,"makas kagidi keser"
+lcdout $fe,$c0, "player1 kazandi"
+sound ses, [100,10]
+endif
+if i=="m" and j=="m" then 
+lcdout $fe,1,"makas makas"
+lcdout $fe,$c0, "beraberlik"
+sound ses, [100,10]
+endif
+if i=="k" and j=="t" then 
+lcdout $fe,1,"kagit tasi sarar"
+lcdout $fe,$c0, "player1 kazandi"
+sound ses, [100,10]
+endif
+if i=="k" and j=="m" then 
+lcdout $fe,1,"makas kagidi keser"
+lcdout $fe,$c0, "player2 kazandi"
+sound ses, [100,10]
+endif
+if i=="k" and j=="k" then 
+lcdout $fe,1,"kagit kagit"
+lcdout $fe,$c0, "beraberlik"
+sound ses, [100,10]
+endif
+
+hserout ["a basarak yeniden baslayabilirsiniz",13,10]
+bekle
+ hserin 1000,bekle,[wait("a"),i]:goto label
+
+goto label
+
+'for i=0 to 125
+'sound ses,[i,10]
+'next i
+
+
+'sn var byte
+'dk var byte
+'sa var byte
+' hserout["saati ayarlamak için space'e basiniz",13,10]
+'label:
+
+'while sa<=23
+
+'    while dk<=59
+        
+'        while sn<=59
+'        hserin 1000,devam,[wait("a"),i]
+'        goto ayarla
+        
+'        devam:
+'        lcdout $fe,1,#(sa dig 1),#(sa dig 0),":",#(dk dig 1),#(dk dig 0),":",#(sn dig 1),#(sn dig 0)
+'          sn=sn+1
+'        wend
+'        hserout[
+'        if sn==59 then sn=0
+        
+'         dk=dk+1
+'    wend 
+'    if dk==59 then dk=0
+    
+'    sa=sa+1
+    
+'wend
+' if sa==23 then sa=0
+'goto label
+
+'ayarla:
+'hserout["saat giriniz",13,10]
+'hserin[dec sa]
+'if sa>23 then hserout["saat 23ten buyuk olamaz",13,10]:goto ayarla
+'hserout["girilen saat:",dec sa,13,10]
+
+'dakika:
+'hserout["dakika giriniz",13,10]
+'hserin[dec dk]
+'if dk>59 then hserout["dakika 59dan buyuk olamaz",13,10]:goto dakika
+'hserout["girilen dakika:",dec dk,13,10]
+
+'saniye:
+'hserout["saniye giriniz",13,10]
+'hserin[dec sn]
+'if sn>59 then hserout["saniye 59dan buyuk olamaz",13,10]:goto saniye
+'hserout[13,10,"girilen saniye:",dec sn]
+
+'goto devam
+
+'HSEROUT [j]
+'HSERIN[j]
+'HSERIN[wait("a"),j]
+'HSERIN[str j\5]
+'HSERIN[dec j]
+
+'hserout[dec j]
+'hserin 1000,label,[j]
+
+'hserin[dec2,j]
+'hserin[skip n,j]
+'hserout[13,10]  'alt satýra geçerek baþlar

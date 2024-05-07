@@ -1,0 +1,81 @@
+include "hafta3_LCD.pbp"
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+
+trisb=%00000000
+portb=0
+
+bekle con 100
+i var byte [8]
+j var byte
+k var byte
+i[0]=3
+i[1]=6
+i[2]=12
+i[3]=9
+i[4]=48
+i[5]=96
+i[6]=192
+i[7]=144
+label:
+lcdout $fe , 1
+
+hserout["w=ileri , s=geri , a=sol, d=sag",13,10]
+bekle2:
+hserin 1000,bekle2,[j]:goto adim
+
+adim:
+if j="w" then 
+lcdout $fe,$80,"ileri gidiyor"
+for k = 0 to 3  
+portb=i[k]:pause bekle:
+next k
+for k = 7 to 4 step -1  
+portb=i[k]:pause bekle
+next k
+endif
+
+if j="s" then 
+lcdout $fe,$80,"geri gidiyor"
+for k = 3 to 0 step -1 
+portb=i[k]:pause bekle:
+next k
+for k = 4 to 7   
+portb=i[k]:pause bekle
+next k
+endif
+
+if j="a" then 
+lcdout $fe,$80,"sola gidiyor"
+for k = 3 to 0 step -1 
+portb=i[k]:pause bekle:
+next k
+for k = 7 to 4 step -1  
+portb=i[k]:pause bekle
+next k
+endif
+
+if j="d" then 
+lcdout $fe,$80,"saga gidiyor"
+for k = 0 to 3  
+portb=i[k]:pause bekle:
+next k
+for k = 4 to 7  
+portb=i[k]:pause bekle
+next k
+endif
+
+
+
+
+
+'for k=0 to 3
+'portb=i[k]
+'pause bekle
+'next k
+
+'pause bekle
+
+goto label

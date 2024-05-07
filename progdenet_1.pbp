@@ -1,0 +1,83 @@
+define LOADER_USED 1
+adcon1=7
+trisa=0
+trisb=0
+portb=0
+porta.0=1
+porta.1=1
+porta.2=1
+porta.3=1
+DEFINE HSER_RCSTA 90h
+DEFINE HSER_TXSTA 24h
+define HSER_BAUD 9600
+DEFINE HSER_CLROERR 1
+i var byte [10]
+j var byte 
+i[0]=%00111111
+i[1]=%00000110
+i[2]=%01011011
+i[3]=%01001111
+i[4]=%01100110
+i[5]=%01101101
+i[6]=%01111101
+i[7]=%00000111
+i[8]=%01111111
+i[9]=%01101111
+'symbol ses=porta.5 
+label:
+
+for j = 0 to 9 
+portb=i[j]
+pause 500
+next j
+
+
+
+'if i<15 then
+'i=i+1 
+'portb=i:pause 1000
+'else
+'i=0
+'endif
+
+'hserin [j]
+
+'if j="a" then
+'    if i=128 then  i=1
+'    i=i*2
+    
+''    sound ses,[i,10]
+    
+'    portb=i: pause 50 
+                                        
+'endif    
+'    if j="d" then 
+'    if i=1 then i=128
+'    i=i/2
+    
+''    sound ses,[i,10]
+
+'    portb=i: pause 50
+'    endif
+
+'if j="w" then
+'    if i=128 then  i=1
+'    i=i+1 
+''    sound ses,[i,10]  
+'    portb=i: pause 50                                       
+'endif    
+'if j="s" then 
+'    if i=0 then i=128
+'    i=i-1
+    
+''    sound ses,[i,10]
+
+'    portb=i: pause 50
+'endif
+
+
+
+
+
+
+goto label
